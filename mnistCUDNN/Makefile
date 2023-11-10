@@ -16,8 +16,10 @@ ifneq (,$(filter $(TARGET_ARCH),x86_64 aarch64 ppc64le armv7l))
     ifneq ($(TARGET_ARCH),$(HOST_ARCH))
         ifneq (,$(filter $(TARGET_ARCH),x86_64 aarch64 ppc64le))
             TARGET_SIZE := 64
+	    NVCCFLAGS += -gencode arch=compute_75,code=sm_75
         else ifneq (,$(filter $(TARGET_ARCH),armv7l))
             TARGET_SIZE := 32
+	    NVCCFLAGS += -gencode arch=compute_32,code=sm_32
         endif
     else
         TARGET_SIZE := $(shell getconf LONG_BIT)
